@@ -73,12 +73,12 @@ class InternetSpeedTest {
             print('onComplete : ${call.arguments['transferRate']}');
 
             uploadSteps++;
-            uploadRate += call.arguments['transferRate'] ~/ 100;
+            uploadRate += call.arguments['transferRate'] ~/ 500;
             print('download steps is $uploadSteps}');
             print('download steps is $uploadRate}');
             double average = (uploadRate ~/ uploadSteps).toDouble();
             SpeedUnit unit = SpeedUnit.Kbps;
-            average /= 100;
+            average /= 500;
             unit = SpeedUnit.Mbps;
             _callbacksById[call.arguments["id"]].item3(average, unit);
             uploadSteps = 0;
@@ -91,12 +91,12 @@ class InternetSpeedTest {
                 call.arguments['errorMessage'],
                 call.arguments['speedTestError']);
           } else if (call.arguments['type'] == ListenerEnum.PROGRESS.index) {
-            double rate = (call.arguments['transferRate'] ~/ 100).toDouble();
+            double rate = (call.arguments['transferRate'] ~/ 500).toDouble();
             print('rate is $rate');
             if (rate != 0) uploadSteps++;
             uploadRate += rate.toInt();
             SpeedUnit unit = SpeedUnit.Kbps;
-            rate /= 100.0;
+            rate /= 500.0;
             unit = SpeedUnit.Mbps;
               _callbacksById[call.arguments["id"]]
                   .item2(call.arguments['percent'].toDouble(), rate, unit);
